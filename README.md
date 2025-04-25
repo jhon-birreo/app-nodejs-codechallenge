@@ -1,7 +1,5 @@
 # Yape Code Challenge :rocket:
 
-# **Yape Microservices Architecture**
-
 <p align="center">
   <a href="http://nestjs.com/" target="_blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Postgresql_elephant.svg" width="50" alt="PostgreSQL" />
