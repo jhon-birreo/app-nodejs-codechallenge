@@ -1,0 +1,23 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TransactionTypeDto {
+  name: String!
+}
+
+type TransactionStatusDto {
+  name: String!
+}
+
+type GetTransactionResponseDto {
+  transactionExternalId: ID!
+  transactionType: TransactionTypeDto
+  transactionStatus: TransactionStatusDto
+  value: Float!
+  createdAt: String!
+}
+
+type Query {
+  getTransaction(id: String!): GetTransactionResponseDto!
+}

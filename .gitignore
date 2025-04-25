@@ -102,3 +102,27 @@ dist
 
 # TernJS port file
 .tern-port
+
+# antifraud-service
+antifraud-service/node_modules
+antifraud-service/dist
+antifraud-service/coverage
+antifraud-service/.env
+antifraud-service/yarn.lock
+antifraud-service/package-lock.json
+
+# api-gateway
+api-gateway/node_modules
+api-gateway/dist
+api-gateway/coverage
+api-gateway/.env
+api-gateway/yarn.lock
+api-gateway/package-lock.json
+
+# transaction-service
+transaction-service/node_modules
+transaction-service/dist
+transaction-service/coverage
+transaction-service/.env
+transaction-service/yarn.lock
+transaction-service/package-lock.json

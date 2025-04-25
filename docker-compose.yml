@@ -1,4 +1,5 @@
 version: "3.7"
+
 services:
   postgres:
     image: postgres:14
@@ -7,6 +8,9 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   zookeeper:
     image: confluentinc/cp-zookeeper:5.5.3
     environment:
@@ -23,3 +27,44 @@ services:
       KAFKA_JMX_PORT: 9991
     ports:
       - 9092:9092
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./api-gateway/Dockerfile
+    ports:
+      - '3001:3001'
+    environment:
+      - API_GATEWAY_PORT=3001
+      - TRANSACTION_SERVICE_URL=http://transaction-service:3002
+      - KAFKA_BROKER=kafka:29092
+    depends_on:
+      - transaction-service
+      - antifraud-service
+  transaction-service:
+    build:
+      context: .
+      dockerfile: ./transaction-service/Dockerfile
+    ports:
+      - '3002:3002'
+    environment:
+      - TRANSACTION_SERVICE_PORT=3002
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
+      - KAFKA_BROKER=kafka:29092
+      - TIME_ZONE=America/Lima
+    depends_on:
+      - postgres
+      - kafka
+  antifraud-service:
+    build:
+      context: .
+      dockerfile: ./antifraud-service/Dockerfile
+    ports:
+      - '3003:3003'
+    environment:
+      - KAFKA_BROKER=kafka:29092
+      - ANTI_FRAUD_AMOUNT_LIMIT=1000
+    depends_on:
+      - kafka
+
+volumes:
+  pgdata:
