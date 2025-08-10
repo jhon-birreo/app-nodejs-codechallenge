@@ -9,9 +9,10 @@ export const getCurrentDateTimeZone = () => {
 export const convertDateToString = (date: Date | string) => {
   if (!date) return '';
 
-  const dateTime = DateTime.fromJSDate(date, {
-    zone: 'America/Lima',
-  });
+  const dateTime =
+    typeof date === 'string'
+      ? DateTime.fromISO(date, { zone: 'America/Lima' })
+      : DateTime.fromJSDate(date, { zone: 'America/Lima' });
 
   if (!dateTime.isValid) {
     console.warn('Invalid date:', date);

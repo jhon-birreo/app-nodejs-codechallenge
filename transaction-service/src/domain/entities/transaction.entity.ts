@@ -93,7 +93,7 @@ export class TransactionEntity extends BaseEntity<ITransaction> {
       transferTypeName: this.getTransferTypeName(props.transferTypeId),
       value: props.value,
       status: TransactionStatus.PENDING,
-      createdAt: getCurrentDateTimeZone(),
+      createdAt: getCurrentDateTimeZone().toISOString(),
     };
     return new TransactionEntity(entity);
   }
