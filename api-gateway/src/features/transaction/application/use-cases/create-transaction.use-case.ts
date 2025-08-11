@@ -4,6 +4,7 @@ import { TransactionCreatedEvent } from '../events/transaction-created.event';
 // import { KafkaProducerService } from '../../infrastructure/messaging/kafka/kafka.producer';
 import { ILoggerProvider } from '../../../shared/logger/logger.interface';
 import { KafkaProducerService } from '../../infrastructure/messaging/kafka/kafka.producer.service';
+import type { TransferTypeProvider } from 'src/features/transfer-type/infrastructure/providers/transfer-type.provider';
 
 @Injectable()
 export class CreateTransactionUseCase {

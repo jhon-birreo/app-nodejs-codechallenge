@@ -3,7 +3,6 @@ import type { IExceptionProvider } from '../../shared/exceptions/exceptions.inte
 import type { ILoggerProvider } from '../../shared/logger/logger.interface';
 import { TransactionResponseDto } from '../dto/transaction-response.dto';
 
-// @Injectable()
 export class GetTransactionUseCase {
   constructor(
     private readonly transactionRepo: TransactionRepository,

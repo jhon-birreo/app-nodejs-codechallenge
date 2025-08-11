@@ -17,5 +17,7 @@ export interface ITransactionCreateRequest {
   accountExternalIdDebit: string;
   accountExternalIdCredit: string;
   transferTypeId: number;
+  transferTypeName: string | null;
   value: number;
+  status?: TransactionStatus;
 }

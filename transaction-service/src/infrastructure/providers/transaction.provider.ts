@@ -10,6 +10,8 @@ import type { ILoggerProvider } from '../../shared/logger/logger.interface';
 import { LoggerProvider } from '../../shared/logger/logger.provider';
 import { KafkaProducerService } from '../messaging/kafka/kafka.producer.service';
 import { PrismaTransactionRepositoryImpl } from '../persistence/prisma-transaction.repository.impl';
+import { PrismaTransferTypeRepositoryImpl } from '../persistence/prisma-transfer-type.repository.impl';
+import { TransferTypeRepository } from '../../domain/repositories/transfer-type.repository';
 
 export const transactionProviders: Provider[] = [
   {
@@ -17,13 +19,24 @@ export const transactionProviders: Provider[] = [
     useClass: PrismaTransactionRepositoryImpl,
   },
   {
+    provide: TransferTypeRepository,
+    useClass: PrismaTransferTypeRepositoryImpl,
+  },
+  {
     provide: TYPES.CREATE_TRANSACTION_USECASE,
     useFactory: (
       transactionPrisma: PrismaTransactionRepositoryImpl,
       kafkaProducer: KafkaProducerService,
+      transferType: PrismaTransferTypeRepositoryImpl,
       logger: ILoggerProvider,
-    ) => new CreateTransactionUseCase(transactionPrisma, kafkaProducer, logger),
-    inject: [TransactionRepository, KafkaProducerService, LoggerProvider],
+    ) =>
+      new CreateTransactionUseCase(
+        transactionPrisma,
+        kafkaProducer,
+        transferType,
+        logger,
+      ),
+    inject: [TransactionRepository, KafkaProducerService, TransferTypeRepository, LoggerProvider],
   },
   {
     provide: TYPES.GET_TRANSACTION_USECASE,

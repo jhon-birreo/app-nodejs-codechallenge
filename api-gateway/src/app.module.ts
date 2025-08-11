@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { RoutesModule } from './features/transaction/presentation/router.module';
+import { TransactionModule } from './features/transaction/presentation/transaction.module';
+import { TransferTypeModule } from './features/transfer-type/presentation/transfer-type.module';
 
 @Module({
-  imports: [RoutesModule],
+  imports: [TransactionModule, TransferTypeModule],
   controllers: [],
   providers: [],
 })

@@ -14,6 +14,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model TransferType {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now()) @db.Timestamptz
+  updatedAt   DateTime? @db.Timestamptz
+
+  transactions Transaction[]
+
+  @@map("transfer_types")
+}
+
 model Transaction {
   transactionId           String    @id @default(uuid())
   transactionExternalId   String    @unique
@@ -26,6 +38,7 @@ model Transaction {
   createdAt               DateTime  @db.Timestamptz
   updatedAt               DateTime? @db.Timestamptz
 
+  transactionType         TransferType @relation(fields: [transferTypeId], references: [id])
   @@index([transactionExternalId])
   @@map("transactions")
 }

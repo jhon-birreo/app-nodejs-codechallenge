@@ -2,10 +2,10 @@ import type { Nullable } from './types';
 
 export abstract class BaseEntity<T> {
   protected props: T;
-  protected _id: string;
+  protected _id: string | number;
 
-  protected constructor(props: Partial<T>, id?: Nullable<string>) {
-    this._id = id as string;
+  protected constructor(props: Partial<T>, id?: Nullable<string | number>) {
+    this._id = id as string | number;
     this.props = {} as T;
     this.initializeProps(props);
   }
@@ -25,11 +25,11 @@ export abstract class BaseEntity<T> {
     return { ...this.props };
   }
 
-  public getId(): string {
+  public getId(): string | number {
     return this._id;
   }
 
-  protected setId(id: string): void {
+  protected setId(id: string | number): void {
     this._id = id;
   }
 }

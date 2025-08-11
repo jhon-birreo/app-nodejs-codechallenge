@@ -1,5 +1,5 @@
 import type { ILoggerProvider } from '../../../shared/logger/logger.interface';
-import { TransactionServiceProvider } from '../../infrastructure/providers/transaction-service.provider';
+import { TransactionServiceProvider } from '../../infrastructure/providers/transaction.provider';
 import { TransactionResponseDto } from '../dto/transaction-response.dto';
 
 export class GetTransactionUseCase {

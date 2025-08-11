@@ -90,9 +90,9 @@ export class TransactionEntity extends BaseEntity<ITransaction> {
       accountExternalIdDebit: props.accountExternalIdDebit || null,
       accountExternalIdCredit: props.accountExternalIdCredit || null,
       transferTypeId: props.transferTypeId,
-      transferTypeName: this.getTransferTypeName(props.transferTypeId),
+      transferTypeName: props.transferTypeName || TransactionTypeName.UNKNOWN,
       value: props.value,
-      status: TransactionStatus.PENDING,
+      status: props.status || TransactionStatus.PENDING,
       createdAt: getCurrentDateTimeZone().toISOString(),
     };
     return new TransactionEntity(entity);
@@ -113,12 +113,12 @@ export class TransactionEntity extends BaseEntity<ITransaction> {
   public toObject(): ITransaction {
     return {
       ...this.props,
-      transactionId: this.getId(),
+      transactionId: this.getId() as string,
     };
   }
   public toResponseDto(): TransactionResponseDto {
     return {
-      transactionExternalId: this.getId(),
+      transactionExternalId: this.getId() as string,
       transactionType: { name: this.transferTypeName },
       transactionStatus: { name: this.status },
       value: this.value,
@@ -126,18 +126,18 @@ export class TransactionEntity extends BaseEntity<ITransaction> {
     };
   }
 
-  private static getTransferTypeName(transferTypeId: number): string {
-    switch (transferTypeId) {
-      case TransactionTypeId.VISA:
-        return TransactionTypeName.VISA;
-      case TransactionTypeId.MASTERCARD:
-        return TransactionTypeName.MASTERCARD;
-      case TransactionTypeId.AMERICAN_EXPRESS:
-        return TransactionTypeName.AMERICAN_EXPRESS;
-      case TransactionTypeId.DISCOVER:
-        return TransactionTypeName.DISCOVER;
-      default:
-        return TransactionTypeName.UNKNOWN;
-    }
-  }
+  // private static getTransferTypeName(transferTypeId: number): string {
+  //   switch (transferTypeId) {
+  //     case TransactionTypeId.VISA:
+  //       return TransactionTypeName.VISA;
+  //     case TransactionTypeId.MASTERCARD:
+  //       return TransactionTypeName.MASTERCARD;
+  //     case TransactionTypeId.AMERICAN_EXPRESS:
+  //       return TransactionTypeName.AMERICAN_EXPRESS;
+  //     case TransactionTypeId.DISCOVER:
+  //       return TransactionTypeName.DISCOVER;
+  //     default:
+  //       return TransactionTypeName.UNKNOWN;
+  //   }
+  // }
 }

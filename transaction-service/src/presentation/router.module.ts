@@ -2,14 +2,16 @@ import { ApolloDriver, type ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { transactionProviders } from '../infrastructure/providers/transaction.provider';
-import { ExceptionModule } from '../shared/exceptions/exception.module';
-import { ExceptionProvider } from '../shared/exceptions/exception.provider';
+import { transferTypeProviders } from 'src/infrastructure/providers/transfer-type.provider';
 import { LoggerProvider } from '..//shared/logger/logger.provider';
 import { PrismaModule } from '../infrastructure/database/prisma/prisma.module';
 import { KafkaModule } from '../infrastructure/messaging/kafka/kafka.module';
+import { transactionProviders } from '../infrastructure/providers/transaction.provider';
+import { ExceptionModule } from '../shared/exceptions/exception.module';
+import { ExceptionProvider } from '../shared/exceptions/exception.provider';
 import { LoggerModule } from '../shared/logger/logger.module';
 import { TransactionController } from './controllers/transaction.controller';
+import { TransferTypeController } from './controllers/transfer-type.controller';
 import { GraphqlModule } from './graphql/graphql.module';
 
 @Module({
@@ -26,10 +28,16 @@ import { GraphqlModule } from './graphql/graphql.module';
     ExceptionModule,
     GraphqlModule,
   ],
-  controllers: [TransactionController],
-  providers: [...transactionProviders, LoggerProvider, ExceptionProvider],
+  controllers: [TransactionController, TransferTypeController],
+  providers: [
+    ...transactionProviders,
+    ...transferTypeProviders,
+    LoggerProvider,
+    ExceptionProvider,
+  ],
   exports: [
     ...transactionProviders,
+    ...transferTypeProviders,
     LoggerModule,
     ExceptionModule,
     KafkaModule,

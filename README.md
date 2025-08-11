@@ -121,7 +121,48 @@ Una vez que los servicios estén corriendo, podrás acceder a ellos a través de
 
 ## Endpoints
 
-### 1. **Crear una Transacción**
+### 1. **Obten la lista de tipo de transferencia
+
+El API Grateway expone un endpoint para la obtencion del listado de tipo de transferencia, aquí se podrá identificar el transferId para la creacion de la transaccion.  Este se comunica con el microservicio de transacciones para recuperar el dato.
+
+**API**
+
+```
+GET http://localhost:3001/transfer-types
+```
+
+**Response**:
+
+```json
+[
+    {
+        "id": "1",
+        "name": "VISA",
+        "description": "Visa credit card",
+        "createdAt": "2025-08-10 21:03:21"
+    },
+    {
+        "id": "2",
+        "name": "MASTERCARD",
+        "description": "Mastercard credit card",
+        "createdAt": "2025-08-10 21:03:21"
+    },
+    {
+        "id": "3",
+        "name": "AMERICAN_EXPRESS",
+        "description": "American Express credit card",
+        "createdAt": "2025-08-10 21:03:21"
+    },
+    {
+        "id": "4",
+        "name": "DISCOVER",
+        "description": "Discover credit card",
+        "createdAt": "2025-08-10 21:03:21"
+    }
+]]
+```
+
+### 2. **Crear una Transacción**
 
 El API Gateway expone un endpoint para crear una transacción. Este se comunica con el microservicio de transacciones y luego con el servicio de detección de fraudes.
 
@@ -151,7 +192,7 @@ POST http://localhost:3001/transactions
 
 ---
 
-### 2. **Recuperar los Datos de una Transacción**
+### 3. **Recuperar los Datos de una Transacción**
 
 Una vez que una transacción haya sido creada, puedes recuperar la información relacionada con la transacción usando los siguientes métodos:
 
